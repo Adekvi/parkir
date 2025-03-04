@@ -12,8 +12,14 @@ use Illuminate\Http\Request;
 
 class AkunController extends Controller
 {
-    public function index(){
-        $akun = User::with('shift', 'jam', 'jalan')->whereIn('role', ['user', 'kolektor'])->get();
+    public function index()
+    {
+        $akun = User::with('shift', 'jam', 'jalan')
+            ->whereIn('role', ['user', 'kolektor'])
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        // dd($akun->toArray());
 
         $shift = Shift::all();
         $dalan = Jalan::all();
@@ -49,7 +55,7 @@ class AkunController extends Controller
 
         $request->validate([
             'namaLokasi' => 'nullable|exists:jalans,kodeJln',
-        ]);        
+        ]);
 
         $akun = User::create([
             'namaLengkap' => $request->namaLengkap,
@@ -82,5 +88,4 @@ class AkunController extends Controller
 
         return redirect()->route('admin.akun')->with('success', 'Akun berhasil didaftarkan.');
     }
-
 }

@@ -11,7 +11,8 @@ class JamLokasi extends Model
 
     protected $guarded = [];
 
-    public function user(){
+    public function user()
+    {
         return $this->hasMany(User::class, 'id_lokasiParkir', 'id');
     }
 
@@ -19,22 +20,23 @@ class JamLokasi extends Model
     //     return $this->hasMany(User::class, 'id_jamLokasi');
     // }
 
-    public function userLokasi(){
+    public function userLokasi()
+    {
         return $this->hasMany(UserLokasi::class, 'id_userLokasi');
     }
 
-    public function harga(){
+    public function harga()
+    {
         return $this->hasMany(Penghargaan::class, 'id_lokasiParkir');
     }
 
-    public function jalan(){
+    public function jalan()
+    {
         return $this->belongsTo(Jalan::class, 'kodeJln', 'kodeJln');
     }
-    
-    // Model JamLokas
 
-
-    public function rekap(){
+    public function rekap()
+    {
         return $this->hasMany(RekapParkir::class, 'id_lokasiParkir', 'id');
     }
 
@@ -47,7 +49,8 @@ class JamLokasi extends Model
     // }
 
     // Model JamLokasi
-    public function parker(){
+    public function parker()
+    {
         return $this->hasMany(Parker::class, 'id_lokasiParkir', 'id');
     }
 }

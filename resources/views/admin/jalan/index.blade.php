@@ -2,28 +2,27 @@
 @section('judul', 'Admin | Setting Nama Jalan')
 @section('konten')
 
-    <div class="content-fluid">
+    <div class="page-inner">
 
         <div class="row mb-3">
             <div class="container-fluid">
                 <div class="judul-menu">
                     <ul class="judul">
                         <li>
-                            <h3 class="text-dark font-weight-bold mb-2">
+                            <h5 class="text-dark font-weight-bold mb-2">
                                 <strong>@yield('judul')</strong>
-                            </h3>
+                            </h5>
                         </li>
                     </ul>
                 </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                {{-- <h3 class="card-title">Pengaturan</h3> --}}
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#kendaraan" class="btn"
-                                    style="background: #0ddbb9">
-                                    <i class="fas fa-plus"></i>
-                                    Tambah Data
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h3 class="card-title">Pengaturan Nama Jalan</h3>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#kendaraan"
+                                    class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Tambah Data
                                 </button>
                             </div>
                             <!-- /.card-header -->
@@ -39,9 +38,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($jalan as $item)
+                                            @foreach ($jalan as $index => $item)
                                                 <tr>
-                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $jalan->firstItem() + $index }}</td>
                                                     <td>{{ $item->kodeJln }}</td>
                                                     <td>{{ $item->namaJalan }}</td>
                                                     <td>
@@ -61,6 +60,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                {{ $jalan->links() }}
                             </div>
 
                             <!-- /.card-body -->
@@ -79,39 +79,3 @@
     @include('admin.jalan.hapus')
 
 @endsection
-
-@push('css')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        .table-responsive {
-            overflow-x: auto;
-            /* Scroll horizontal ketika diperlukan */
-            -webkit-overflow-scrolling: touch;
-            /* Dukungan untuk smooth scrolling pada perangkat mobile */
-        }
-
-        .table {
-            width: 100%;
-            /* Membuat tabel memenuhi lebar kontainer */
-            table-layout: auto;
-            /* Agar tabel dapat menyesuaikan lebar kolom sesuai konten */
-        }
-
-        @media (max-width: 576px) {
-            .card-title {
-                font-size: 1rem;
-                text-align: center;
-            }
-
-            table th,
-            table td {
-                font-size: 0.875rem;
-            }
-        }
-    </style>
-@endpush
-
-@push('js')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-@endpush

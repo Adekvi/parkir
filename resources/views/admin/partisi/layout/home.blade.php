@@ -2,10 +2,9 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>@yield('judul')</title>
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
 
     @include('admin.partisi.include.css')
     @stack('css')
@@ -13,53 +12,86 @@
 </head>
 
 <body>
-    <div class="container-scroller">
-        {{-- <div class="row p-0 m-0 proBanner" id="proBanner">
-			<div class="col-md-12 p-0 m-0">
-				<div class="card-body card-body-padding d-flex align-items-center justify-content-between">
-					<div class="ps-lg-1">
-						<div class="d-flex align-items-center justify-content-between">
-							<p class="mb-0 font-weight-medium me-3 buy-now-text">Free 24/7 customer support, updates, and more with this template!</p>
-							<a href="https://www.bootstrapdash.com/product/kapella-admin-pro/?utm_source=organic&utm_medium=banner&utm_campaign=buynow_demo" target="_blank" class="btn me-2 buy-now-btn border-0">Get Pro</a>
-						</div>
-					</div>
-					<div class="d-flex align-items-center justify-content-between">
-						<a href="https://www.bootstrapdash.com/product/kapella-admin-pro/"><i class="mdi mdi-home me-3 text-white"></i></a>
-						<button id="bannerClose" class="btn border-0 p-0">
-							<i class="mdi mdi-close text-white me-0"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div> --}}
-        <!-- partial:partials/_horizontal-navbar.html -->
-        <div class="horizontal-menu">
-            @include('admin.partisi.include.navatas')
+    <div class="wrapper">
+        <!-- Sidebar -->
+        @include('admin.partisi.include.sidebar')
+        <!-- End Sidebar -->
 
-            @include('admin.partisi.include.navbar')
-        </div>
-        <!-- partial -->
-        <div class="container-fluid page-body-wrapper" id="mainContainer">
-            <div class="main-panel">
+        <div class="main-panel">
+            @include('admin.partisi.include.header')
 
-                <div class="container mt-3">
-
-                    @yield('konten')
-
-                    <!-- content-wrapper ends -->
-                </div>
-
+            <div class="container">
+                @yield('konten')
             </div>
-            <!-- main-panel ends -->
+
+            @include('admin.partisi.include.footer')
         </div>
-        @include('admin.partisi.include.footer')
 
-        <!-- page-body-wrapper ends -->
+        <div class="custom-template">
+            <div class="title">Settings</div>
+            <div class="custom-content">
+                <div class="switcher">
+                    <div class="switch-block">
+                        <h4>Logo Header</h4>
+                        <div class="btnSwitch">
+                            <button type="button" class="selected changeLogoHeaderColor" data-color="dark"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="blue"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="purple"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="light-blue"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="green"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="orange"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="red"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="white"></button>
+                            <br />
+                            <button type="button" class="changeLogoHeaderColor" data-color="dark2"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="blue2"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="purple2"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="light-blue2"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="green2"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="orange2"></button>
+                            <button type="button" class="changeLogoHeaderColor" data-color="red2"></button>
+                        </div>
+                    </div>
+                    <div class="switch-block">
+                        <h4>Navbar Header</h4>
+                        <div class="btnSwitch">
+                            <button type="button" class="changeTopBarColor" data-color="dark"></button>
+                            <button type="button" class="changeTopBarColor" data-color="blue"></button>
+                            <button type="button" class="changeTopBarColor" data-color="purple"></button>
+                            <button type="button" class="changeTopBarColor" data-color="light-blue"></button>
+                            <button type="button" class="changeTopBarColor" data-color="green"></button>
+                            <button type="button" class="changeTopBarColor" data-color="orange"></button>
+                            <button type="button" class="changeTopBarColor" data-color="red"></button>
+                            <button type="button" class="selected changeTopBarColor" data-color="white"></button>
+                            <br />
+                            <button type="button" class="changeTopBarColor" data-color="dark2"></button>
+                            <button type="button" class="changeTopBarColor" data-color="blue2"></button>
+                            <button type="button" class="changeTopBarColor" data-color="purple2"></button>
+                            <button type="button" class="changeTopBarColor" data-color="light-blue2"></button>
+                            <button type="button" class="changeTopBarColor" data-color="green2"></button>
+                            <button type="button" class="changeTopBarColor" data-color="orange2"></button>
+                            <button type="button" class="changeTopBarColor" data-color="red2"></button>
+                        </div>
+                    </div>
+                    <div class="switch-block">
+                        <h4>Sidebar</h4>
+                        <div class="btnSwitch">
+                            <button type="button" class="changeSideBarColor" data-color="white"></button>
+                            <button type="button" class="selected changeSideBarColor" data-color="dark"></button>
+                            <button type="button" class="changeSideBarColor" data-color="dark2"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-toggle">
+                <i class="icon-settings"></i>
+            </div>
+        </div>
+
     </div>
-    <!-- container-scroller -->
 
-    @stack('js')
     @include('admin.partisi.include.js')
+    @stack('js')
 
 </body>
 

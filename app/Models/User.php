@@ -20,7 +20,6 @@ class User extends Authenticatable
     protected $fillable = [
         'id_shift',
         'id_lokasiParkir',
-        // 'namaLokasi',
         'namaLengkap',
         'username',
         'email',
@@ -54,40 +53,49 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function parker(){
+    public function parker()
+    {
         return $this->hasMany(Parker::class, 'id_user', 'id');
     }
 
-    public function userLokasi(){
+    public function userLokasi()
+    {
         return $this->hasOne(UserLokasi::class, 'id_user');
     }
 
-    public function shift(){
+    public function shift()
+    {
         return $this->belongsTo(Shift::class, 'id_shift');
     }
 
-    public function jalan(){
-        return $this->belongsTo(Jalan::class, 'id_jalan', 'id');
+    public function jalan()
+    {
+        return $this->belongsTo(Jalan::class, 'namaLokasi', 'kodeJln');
     }
 
-    public function rekap(){
+    public function rekap()
+    {
         return $this->hasMany(RekapParkir::class);
     }
 
-    public function jam(){
+    public function jam()
+    {
         return $this->belongsTo(JamLokasi::class, 'id_lokasiParkir', 'id');
     }
 
     // hosting
-    public function lokasi_parkir() {
+    public function lokasi_parkir()
+    {
         return $this->belongsTo(JamLokasi::class, 'id_lokasiParkir');
     }
 
-    public function penghargaan() {
+    public function penghargaan()
+    {
         return $this->hasMany(Penghargaan::class, 'id_lokasiParkir', 'id_lokasiParkir');
     }
 
-    public function nama_lokasi() {
+    public function nama_lokasi()
+    {
         return $this->belongsTo(Jalan::class, 'namaLokasi', 'kodeJln');
     }
 }

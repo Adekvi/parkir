@@ -11,32 +11,36 @@ class JamController extends Controller
 {
     public function index()
     {
-        $jam = JamLokasi::with('jalan')->paginate(10);
+        $jam = JamLokasi::with('jalan')->orderBy('id', 'desc')->paginate(10);
         $jalan = Jalan::all();
 
-        return view('admin.lokasi.index', compact('jam', 'jalan'));
+        $pilihJalan = $jalan->isNotEmpty() ? $jalan->first()->id : null;
+
+        // dd($jam);
+
+        return view('admin.lokasi.index', compact('jam', 'jalan', 'pilihJalan'));
     }
 
     public function cari(Request $request)
     {
         if ($request->ajax()) {
-            // Ambil query pencarian dari request
             $query = $request->input('query');
 
-            // Query pencarian data menggunakan LIKE
-            $jam = JamLokasi::where('kodeJln', 'like', "%$query%")
+            // Query pencarian dengan relasi jalan
+            $jam = JamLokasi::with('jalan')
+                ->whereHas('jalan', function ($q) use ($query) {
+                    $q->where('namaJalan', 'like', "%$query%");
+                })
                 ->orWhere('tmptParkir', 'like', "%$query%")
                 ->orWhere('durasiParkir', 'like', "%$query%")
                 ->orWhere('tipe', 'like', "%$query%")
                 ->get();
 
-            // Kembalikan jam sebagai JSON
             return response()->json($jam);
         }
 
         return redirect()->route('admin.lokasi');
     }
-
 
     public function tambah(Request $request)
     {
@@ -47,16 +51,27 @@ class JamController extends Controller
             'tipe' => 'required'
         ]);
 
+        // Ambil kode jalan terakhir
+        $lastKode = JamLokasi::orderBy('kodeJln', 'desc')->first();
+
+        // Jika belum ada data, mulai dari 001
+        $newKode = $lastKode ? str_pad((int) $lastKode->kodeJln + 1, 3, '0', STR_PAD_LEFT) : '001';
+
+        // Simpan data dengan kode baru
         $data = [
-            'kodeJln' => $request->kodeJln,
+            'kodeJln' => $newKode,
             'durasiParkir' => $request->durasiParkir,
             'tmptParkir' => $request->tmptParkir,
             'tipe' => $request->tipe,
         ];
 
+        // dd($data);
+
         JamLokasi::create($data);
+
         return redirect()->route('admin.lokasi')->with('success', 'Data berhasil ditambahkan');
     }
+
 
     public function getKodeJln($id)
     {
@@ -69,15 +84,12 @@ class JamController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $request->validate([
-            'kodeJln' => 'required',
-            'durasiParkir' => 'required',
-            'tmptParkir' => 'required',
-            'tipe' => 'required'
-        ]);
+        // Format kodeJln agar tetap dalam bentuk 3 digit (contoh: 001, 002, 010, dst.)
+        $formattedKodeJln = str_pad($request->kodeJln, 3, '0', STR_PAD_LEFT);
 
+        // Data yang akan diperbarui
         $data = [
-            'kodeJln' => $request->kodeJln,
+            'kodeJln' => $formattedKodeJln,
             'durasiParkir' => $request->durasiParkir,
             'tmptParkir' => $request->tmptParkir,
             'tipe' => $request->tipe,

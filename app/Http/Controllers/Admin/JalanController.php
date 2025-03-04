@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Log;
 
 class JalanController extends Controller
 {
-    public function index(){
-        $jalan = Jalan::all();
+    public function index()
+    {
+        $jalan = Jalan::paginate(10);
 
         return view('admin.jalan.index', compact('jalan'));
     }
@@ -45,24 +46,24 @@ class JalanController extends Controller
     {
         // Cari kode terakhir di tabel jalan
         $lastKode = Jalan::orderBy('kodeJln', 'desc')->first();
-    
+
         // Jika tidak ada kode terakhir, mulai dari "JL001"
         if (!$lastKode) {
             $newKodeJln = 'JL001';
         } else {
             // Ambil angka terakhir dari kode (misalnya "JL001" -> 1)
             $lastNumber = (int) substr($lastKode->kodeJln, 2);
-    
+
             // Buat kode baru
             $newNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
             $newKodeJln = 'JL' . $newNumber;
         }
 
         Log::info('Kode Jalan:', ['kodeJln' => $newKodeJln]);
-    
+
         // Kembalikan hasil sebagai JSON
         return response()->json(['kodeJln' => $newKodeJln]);
-    }    
+    }
 
     public function edit(Request $request, $id)
     {
@@ -88,7 +89,8 @@ class JalanController extends Controller
         return redirect()->route('admin.jalan.index')->with('success', 'Nama jalan berhasil diubah');
     }
 
-    public function hapus($id){
+    public function hapus($id)
+    {
         Jalan::destroy($id);
 
         return redirect()->route('admin.jalan.index')->with('success', 'Nama jalan berhasil dihapus');

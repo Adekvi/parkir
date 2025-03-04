@@ -3,7 +3,7 @@
 @section('konten')
 
     {{-- <section class="content"> --}}
-    <div class="content-fluid">
+    <div class="page-inner">
 
         <!-- Small boxes (Stat box) -->
         <div class="row">
@@ -12,39 +12,54 @@
                     <div class="judul-menu">
                         <ul class="judul">
                             <li>
-                                <h3 class="text-dark font-weight-bold mb-2">
+                                <h5 class="text-dark font-weight-bold mb-2">
                                     <strong>@yield('judul')</strong>
-                                </h3>
+                                </h5>
                             </li>
                         </ul>
                     </div>
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                {{-- <h3 class="card-title">Pengaturan</h3> --}}
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#kendaraan" class="btn"
-                                    style="background: #0ddbb9">
-                                    <i class="fas fa-plus"></i>
-                                    Tambah Data
-                                </button>
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <!-- Judul di kiri -->
+                                <h3 class="card-title m-0">Pengaturan Tarif</h3>
+
+                                <!-- Tombol Tambah & Pencarian di kanan -->
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="tambah" style="white-space: nowrap">
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#kendaraan"
+                                            class="btn btn-primary">
+                                            <i class="fas fa-plus"></i> Tambah Data
+                                        </button>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="cari" placeholder="Cari...">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <table id="example1" class="table table-bordered table-striped"
+                                        style="white-space: nowrap">
                                         <thead class="table-primary">
                                             <tr>
                                                 <th>No</th>
+                                                <th>Nama Jalan</th>
                                                 <th>Lokasi Parkir</th>
                                                 <th>Jenis Kendaraan</th>
                                                 <th>Harga</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="tampil">
                                             @foreach ($rego as $index => $item)
                                                 <tr>
-                                                    <td>{{ $index + 1 }}</td>
+                                                    <td>{{ $rego->firstItem() + $index }}</td>
+                                                    <td>{{ $item->lokasi->jalan->namaJalan ?? '-' }}</td>
                                                     <td>{{ $item->lokasi->tmptParkir ?? '-' }}</td>
                                                     <td>{{ $item->jenisKendaraan }}</td>
                                                     <td>{{ $item->harga }}</td>
@@ -64,8 +79,8 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    {{ $rego->links() }}
                                 </div>
+                                {{ $rego->links() }}
                             </div>
 
                             <!-- /.card-body -->
@@ -87,69 +102,113 @@
 
 @endsection
 
-@push('css')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        .table-responsive {
-            overflow-x: auto;
-            /* Scroll horizontal ketika diperlukan */
-            -webkit-overflow-scrolling: touch;
-            /* Dukungan untuk smooth scrolling pada perangkat mobile */
-        }
-
-        .table {
-            width: 100%;
-            /* Membuat tabel memenuhi lebar kontainer */
-            table-layout: auto;
-            /* Agar tabel dapat menyesuaikan lebar kolom sesuai konten */
-        }
-
-        @media (max-width: 576px) {
-            .card-title {
-                font-size: 1rem;
-                text-align: center;
-            }
-
-            table th,
-            table td {
-                font-size: 0.875rem;
-            }
-        }
-    </style>
-@endpush
-
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- DataTables  & Plugins -->
-    <script src="{{ asset('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('admin/dist/js/demo.js') }}"></script>
     <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": false,
-                "lengthChange": true,
-                "autoWidth": true,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $(document).ready(function() {
+            $('#cari').on('keyup', function() {
+                let query = $(this).val();
+
+                $.ajax({
+                    url: "{{ route('cari.harga') }}",
+                    type: "GET",
+                    data: {
+                        query: query
+                    },
+                    success: function(response) {
+                        let tableBody = $('#tampil');
+                        tableBody.empty(); // Hapus isi tabel sebelum mengisi ulang
+
+                        if (response.length > 0) {
+                            response.forEach(function(item, index) {
+                                let modalEdit = `
+                            <div class="modal fade" id="edit${item.id}" tabindex="-1" aria-labelledby="editLabel${item.id}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-primary">
+                                            <h5 class="modal-title text-white" id="editLabel${item.id}">Edit Data</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="/admin/harga-edit/${item.id}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Tempat Parkir</label>
+                                                    <input type="text" name="tmptParkir" class="form-control" value="${item.lokasi ? item.lokasi.tmptParkir : ''}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Harga</label>
+                                                    <input type="number" name="harga" class="form-control" value="${item.harga}">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>`;
+
+                                let modalHapus = `
+                            <div class="modal fade" id="hapus${item.id}" tabindex="-1" aria-labelledby="hapusLabel${item.id}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger">
+                                            <h5 class="modal-title text-white" id="hapusLabel${item.id}">Hapus Data</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="/admin/harga-hapus/${item.id}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <div class="modal-body">
+                                                <p>Apakah Anda yakin ingin menghapus data ini?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>`;
+
+                                let row = `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${item.lokasi && item.lokasi.jalan ? item.lokasi.jalan.namaJalan : '-'}</td>
+                                <td>${item.lokasi ? item.lokasi.tmptParkir : '-'}</td>
+                                <td>${item.jenisKendaraan}</td>
+                                <td>Rp. ${new Intl.NumberFormat('id-ID').format(item.harga)}</td>
+                                <td>
+                                    <button type="button" class="btn btn-warning rounded-pill btn-sm"
+                                        data-bs-toggle="modal" data-bs-target="#edit${item.id}">
+                                        <i class="fas fa-pen"></i> Edit
+                                    </button>
+                                    <button type="button" class="btn btn-danger rounded-pill btn-sm"
+                                        data-bs-toggle="modal" data-bs-target="#hapus${item.id}">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </button>
+                                </td>
+                            </tr>`;
+
+                                tableBody.append(row);
+                                $(modalEdit).appendTo('body');
+                                $(modalHapus).appendTo('body');
+                            });
+                        } else {
+                            tableBody.append(
+                                '<tr><td colspan="6" class="text-center">Data tidak ditemukan</td></tr>'
+                            );
+                        }
+                    },
+                    error: function() {
+                        alert("Terjadi kesalahan, coba lagi.");
+                    }
+                });
+            });
         });
     </script>
 @endpush

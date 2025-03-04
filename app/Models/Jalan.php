@@ -11,11 +11,13 @@ class Jalan extends Model
 
     protected $guarded = [];
 
-    public function user(){
-        return $this->hasMany(User::class, 'id_jalan', 'id');
+    public function users()
+    {
+        return $this->hasMany(User::class, 'namaLokasi', 'kodeJln');
     }
 
-    public function jam(){
+    public function jam()
+    {
         return $this->hasMany(Jalan::class, 'kodeJln', 'kodeJln');
     }
 
@@ -34,7 +36,13 @@ class Jalan extends Model
         return $this->hasMany(JamLokasi::class, 'kodeJln', 'kodeJln');
     }
 
-    public function pelangan(){
+    public function pelangan()
+    {
         return $this->hasMany(DataPelanggan::class, 'id');
     }
+
+    // public function harga()
+    // {
+    //     return $this->hasMany(Penghargaan::class, 'id');
+    // }
 }

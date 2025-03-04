@@ -3,7 +3,7 @@
         aria-labelledby="myModalLabel160" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background: #0ddbb9">
+                <div class="modal-header bg-primary">
                     <h5 class="modal-title white" id="myModalLabel160">Update Header Karcis</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
@@ -60,8 +60,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn" style="background: #0ddbb9">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
             </div>

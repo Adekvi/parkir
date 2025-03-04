@@ -1,11 +1,11 @@
 @foreach ($shift as $item)
     <div class="modal fade text-left" id="edit{{ $item->id }}" tabindex="-1" role="dialog"
         aria-labelledby="myModalLabel160" aria-hidden="true">
-        <div class="modal-dialog modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background: #0ddbb9">
+                <div class="modal-header bg-primary">
                     <h5 class="modal-title text-white" id="myModalLabel160">Update Shift</h5>
-                    <button type="button" class="btn-close btn-light" data-bs-dismiss="modal"
+                    <button type="button" class="btn-close btn-dark" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <form action="{{ url('admin/shift-edit/' . $item->id) }}" method="POST" enctype="multipart/form-data">
@@ -44,7 +44,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn text-weight-bold" style="background: #0ddbb9">Save
+                        <button type="submit" class="btn text-weight-bold btn-primary">Save
                             changes</button>
                     </div>
                 </form>

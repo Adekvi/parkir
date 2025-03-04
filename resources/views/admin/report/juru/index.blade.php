@@ -10,7 +10,7 @@
         </ul>
     </div>
     <div class="row">
-        <div class="col-12">
+        <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-header">
                     <form method="GET" action="{{ route('admin.parkir.index') }}">
@@ -52,12 +52,14 @@
                         </div>
                     </form>
                 </div>
-
-                <!-- /.card-header -->
+            </div>
+        </div>
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-striped">
-                            <thead class="table-primary" style="white-space: nowrap">
+                        <table class="table table-striped">
+                            <thead class="table-primary">
                                 <tr>
                                     <th>No</th>
                                     <th>Tanggal</th>
@@ -70,7 +72,7 @@
                                     {{-- <th>Aksi</th> --}}
                                 </tr>
                             </thead>
-                            <tbody style="white-space: nowrap">
+                            <tbody>
                                 <?php
                                 
                                 if (!function_exists('Rupiah')) {
@@ -84,7 +86,7 @@
 
                                 @foreach ($juru as $item)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td class="py-1">{{ $loop->iteration }}</td>
                                         <td>{{ \Carbon\Carbon::parse($item->tanggal)->timezone('Asia/Jakarta')->translatedFormat('d-m-Y') }}
                                         </td>
                                         <td>{{ $item->jam->tmptParkir ?? 'Tidak Diketahui' }}</td>
@@ -97,23 +99,18 @@
                                         </td>
                                         <td>Rp. {{ Rupiah($item->total_nominal) }}</td>
                                         {{-- <td>
-                                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#info{{ $item->id }}">
-                                                <i class="fas fa-circle-info"></i> Detail
-                                            </button>
-                                        </td> --}}
+                                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#info{{ $item->id }}">
+                                        <i class="fas fa-circle-info"></i> Detail
+                                    </button>
+                                </td> --}}
                                     </tr>
                                 @endforeach
                             </tbody>
-
                         </table>
-
                     </div>
                 </div>
-
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
         </div>
     </div>
 
@@ -122,12 +119,11 @@
 @endsection
 
 @push('css')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
 @endpush
 
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
 
     <script>
         // dapatkan lokasi secara otomatis

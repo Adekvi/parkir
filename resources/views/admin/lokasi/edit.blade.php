@@ -1,9 +1,9 @@
 @foreach ($jam as $item)
     <div class="modal fade text-left" id="edit{{ $item->id }}" tabindex="-1" role="dialog"
         aria-labelledby="myModalLabel160" aria-hidden="true">
-        <div class="modal-dialog modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header" style="background: #0ddbb9">
+                <div class="modal-header bg-primary">
                     <h5 class="modal-title text-white" id="myModalLabel160">Edit Data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
@@ -13,38 +13,51 @@
                     @method('PUT')
                     <div class="modal-body">
                         <div class="row align-items-center">
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="">Nama Jalan</label>
+                                    <select name="kodeJln" id="kodeJln" class="form-control">
+                                        <option value="">-- Pilih Nama Jalan --</option>
+                                        @foreach ($jalan as $jal)
+                                            <option value="{{ $jal->id }}"
+                                                {{ $pilihJalan == $jal->id ? 'selected' : '' }}>{{ $jal->namaJalan }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="">Tempat Parkir</label>
                                     <input type="text" class="form-control" name="tmptParkir" id="tmptParkir"
                                         placeholder="Jenis Tempat Parkir" value="{{ $item->tmptParkir }}" required>
-                                    <p style="font-size: 15px; color: orange">*Lapangan/Gedung/Pinggir Jalan dan Lainnya
-                                    </p>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="mulai">Durasi Parkir</label>
                                     <div class="input-group">
-                                        <input type="number" name="durasiParkir" id="durasiParkir" class="form-control"
-                                            value="{{ $item->durasiParkir }}">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"
-                                                style="background: rgb(228, 228, 228); font-size: 15px">
-                                                <b>Jam</b>
-                                            </span>
-                                        </div>
+                                        <!-- Input Field dengan flex-grow-1 agar sama besar -->
+                                        <input type="number" name="durasiParkir" id="durasiParkir"
+                                            class="form-control flex-grow-1" value="{{ $item->durasiParkir ?? '-' }}">
+
+                                        <!-- Label "Jam" tetap sejajar dan sama besar -->
+                                        <span class="input-group-text w-25 text-center"
+                                            style="background: rgb(228, 228, 228); font-size: 15px">
+                                            <b>Jam</b>
+                                        </span>
                                     </div>
                                 </div>
+
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="mulai">Tipe Parkir</label>
                                     <select name="tipe" id="tipe" class="form-control">
                                         <option value="">--Pilih--</option>
-                                        <option value="Flat" {{ $item->tipe == 'Flat' ? 'selected' : '' }}>Flat
+                                        <option value="flat" {{ $item->tipe == 'Flat' ? 'selected' : '' }}>Flat
                                         </option>
-                                        <option value="Progresif" {{ $item->tipe == 'Progresif' ? 'selected' : '' }}>
+                                        <option value="progresif" {{ $item->tipe == 'Progresif' ? 'selected' : '' }}>
                                             Progressif</option>
                                     </select>
                                 </div>
@@ -53,8 +66,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn" style="background: #0ddbb9">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
             </div>
@@ -65,14 +78,10 @@
 @endforeach
 
 @push('css')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endpush
 
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
         document.getElementById('tmptParkir').addEventListener('change', function() {
             var tmptParkir = this.value;

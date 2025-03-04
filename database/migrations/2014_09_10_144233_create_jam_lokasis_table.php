@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('kodeJln')->nullable();
             $table->foreign('kodeJln')->references('kodeJln')
                 ->on('jalans')
-                ->onDelete('cascade');
+                ->onDelete('set null');
             $table->integer('durasiParkir')->nullable();
             $table->string('tmptParkir')->nullable();
             $table->string('tipe')->nullable();

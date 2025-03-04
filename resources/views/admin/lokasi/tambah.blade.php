@@ -1,8 +1,8 @@
 <div class="modal fade text-left" id="kendaraan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header" style="background: #0ddbb9">
+            <div class="modal-header bg-primary">
                 <h5 class="modal-title text-white" id="myModalLabel160">Tambah Data</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
@@ -12,20 +12,14 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="form-gro">
+                            <div class="form-group">
                                 <label for="">Nama Jalan</label>
-                                <select name="namaJalan" id="namaJalan" class="form-control">
+                                <select name="kodeJln" id="kodeJln" class="form-control">
                                     <option value="">-- Pilih Nama Jalan --</option>
                                     @foreach ($jalan as $item)
                                         <option value="{{ $item->id }}">{{ $item->namaJalan }}</option>
                                     @endforeach
                                 </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="">Kode Jalan</label>
-                                <input type="text" name="kodeJln" id="kodeJln" class="form-control" readonly>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -40,23 +34,25 @@
                             <div class="form-group">
                                 <label for="mulai">Durasi Parkir</label>
                                 <div class="input-group">
-                                    <input type="number" name="durasiParkir" id="durasiParkir" class="form-control">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"
-                                            style="background: rgb(228, 228, 228); font-size: 15px">
-                                            <b>Jam</b>
-                                        </span>
-                                    </div>
+                                    <!-- Input Field dengan flex-grow-1 agar sama besar -->
+                                    <input type="number" name="durasiParkir" id="durasiParkir"
+                                        class="form-control flex-grow-1">
+
+                                    <!-- Label "Jam" tetap sejajar dan sama besar -->
+                                    <span class="input-group-text w-25 text-center"
+                                        style="background: rgb(228, 228, 228); font-size: 15px">
+                                        <b>Jam</b>
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="mulai">Tipe Parkir</label>
                                 <select name="tipe" id="tipe" class="form-control">
                                     <option value="">--Pilih--</option>
-                                    <option value="flat">Flat</option>
-                                    <option value="progresif">Progressif</option>
+                                    <option value="Flat">Flat</option>
+                                    <option value="Progresif">Progressif</option>
                                 </select>
                             </div>
                         </div>
@@ -64,8 +60,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn" style="background: #0ddbb9">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
         </div>
@@ -75,14 +71,10 @@
 </div>
 
 @push('css')
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endpush
 
 @push('js')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
         // kode jalan dan Nama Jalan
         $(document).ready(function() {

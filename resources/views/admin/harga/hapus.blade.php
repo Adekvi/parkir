@@ -1,5 +1,6 @@
 @foreach ($rego as $item)
-    <div class="modal fade text-left" id="hapus{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+    <div class="modal fade text-left" id="hapus{{ $item->id }}" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel160" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
@@ -8,7 +9,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ url('admin/tarif-hapus/' . $item->id ) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ url('admin/tarif-hapus/' . $item->id) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('DELETE')
                     <div class="modal-body">

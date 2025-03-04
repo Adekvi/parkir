@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('footer2')->nullable();
             $table->string('footer3')->nullable();
             $table->string('footer4')->nullable();
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

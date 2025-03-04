@@ -14,12 +14,14 @@ class Penghargaan extends Model
         'jenisKendaraan',
         'harga',
     ];
-    
-    public function lokasi(){
+
+    public function lokasi()
+    {
         return $this->belongsTo(JamLokasi::class, 'id_lokasiParkir');
     }
 
-    // public function jalan(){
+    // public function jalan()
+    // {
     //     return $this->belongsTo(Jalan::class, 'id_jalan', 'id');
     // }
 }

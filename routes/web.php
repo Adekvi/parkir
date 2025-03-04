@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\Report\DalanController;
 use App\Http\Controllers\Admin\Report\DayController;
 use App\Http\Controllers\Admin\Report\JuruController;
 use App\Http\Controllers\Admin\Report\KolekController;
+use App\Http\Controllers\Admin\Report\ReportController;
 use App\Http\Controllers\Admin\Report\WulanController;
 use App\Http\Controllers\Admin\SetorLaporanController;
 use App\Http\Controllers\Admin\ShiftController as AdminShiftController;
@@ -165,12 +166,13 @@ Route::middleware(['auth', 'admin'])->namespace('admin')->group(function () {
     Route::put('admin/shift-edit/{id}', [AdminShiftController::class, 'edit'])->name('admin.shift-edit');
     Route::delete('admin/shift-hapus/{id}', [AdminShiftController::class, 'hapus'])->name('admin.shift-hapus');
 
-    // kendaraan
+    // Harga
     Route::get('admin/harga', [HargaController::class, 'index'])->name('admin.harga');
     Route::post('admin/harga-tambah', [HargaController::class, 'tambah'])->name('admin.harga-tambah');
     Route::put('admin/harga-edit/{id}', [HargaController::class, 'edit'])->name('admin.harga-edit');
     Route::delete('admin/harga-hapus/{id}', [HargaController::class, 'hapus'])->name('admin.harga-hapus');
     Route::get('/get-namaJalan/{id}', [HargaController::class, 'getNamaJalan'])->name('get-namaJln.kodeJln');
+    Route::get('/cari-harga', [HargaController::class, 'cari'])->name('cari.harga');
 
     // lokasi
     Route::get('admin/lokasi', [AdminJamController::class, 'index'])->name('admin.lokasi');
@@ -179,12 +181,6 @@ Route::middleware(['auth', 'admin'])->namespace('admin')->group(function () {
     Route::put('admin/lokasi-edit/{id}', [AdminJamController::class, 'edit'])->name('admin.lokasi-edit');
     Route::delete('admin/lokasi-hapus/{id}', [AdminJamController::class, 'hapus'])->name('admin.lokasi-hapus');
     Route::get('/get-kodeJln/{id}', [AdminJamController::class, 'getKodeJln'])->name('get-kodeJln');
-
-    // tarif
-    // Route::get('admin/harga', [HargaController::class, 'index'])->name('admin.harga');
-    // Route::post('admin/harga-tambah', [HargaController::class, 'tambah'])->name('admin.harga-tambah');
-    // Route::put('admin/harga-edit/{id}', [HargaController::class, 'edit'])->name('admin.harga-edit');
-    // Route::delete('admin/harga-hapus/{id}', [HargaController::class, 'hapus'])->name('admin.harga-hapus');
 
     // Jalan
     Route::get('admin/jalan', [AdminJalanController::class, 'index'])->name('admin.jalan.index');
@@ -213,6 +209,9 @@ Route::middleware(['auth', 'admin'])->namespace('admin')->group(function () {
     Route::get('admin/akun', [AkunController::class, 'index'])->name('admin.akun');
     Route::post('status-Akun', [AkunController::class, 'statusAkun'])->name('statusAkun.update');
     Route::post('daftar/akun', [AkunController::class, 'daftar'])->name('daftar.akun');
+
+    // Report
+    Route::get('admin/report', [ReportController::class, 'index'])->name('admin.report');
 
     // Report Juru Parkir
     Route::get('admin/juru-parkir', [JuruController::class, 'index'])->name('admin.parkir.index');
